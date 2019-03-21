@@ -9,7 +9,8 @@ import login from '@/components/nav/login'
 import xingceSprint from '@/components/test/xingce_menu_sprint'
 import xingceSpecial from '@/components/test/xingce_menu_special'
 import xingceTest from '@/components/test/xingce_test'
-import news from '@/components/nav/news'
+import news from '@/components/news/news'
+import newsDetail from '@/components/news/news_detail'
 
 Vue.use(Router)
 
@@ -65,6 +66,11 @@ export default new Router({
       path: '/news',
       name: 'news',
       component: news
+    },
+    {
+      path: '/newsDetail',
+      name: 'newsDetail',
+      component: newsDetail
     }
   ]
 })

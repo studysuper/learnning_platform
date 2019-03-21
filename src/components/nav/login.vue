@@ -15,7 +15,10 @@
           placeholder="密码："
           ref="pwd"
         >
-        <div class="login_btn" @click="register">登录</div>
+        <div
+          class="login_btn"
+          @click="register"
+        >登录</div>
       </div>
     </div>
     <footerBar class="footerBar"></footerBar>
@@ -27,44 +30,46 @@ import headBar from "@/components/nav/header";
 import footerBar from "@/components/nav/footer";
 export default {
   data() {
-    return {
-     
-    };
+    return {};
   },
-  mounted(){
+  mounted() {
     // console.log(this.$axios);
   },
-  methods:{
-    register:function(){
+  methods: {
+    register: function() {
       let user = this.$refs.user.value;
       let pwd = this.$refs.pwd.value;
-      console.log(user+"  "+pwd)
-      let url = 'http://localhost:80/front/froUser/save';
-      this.$axios.post(url,{
-        userName:user,
-        password:pwd
-      }).then(function(res){
-        console.log(res);
-      }).catch(function(error){
-        console.log(error);
-      })
+      let param = {
+        userName: user,
+        password: pwd
+      };
+      console.log(user + "  " + pwd);
+      let url = "http://localhost:80/front/froUser/save";
+      this.$axios
+        .post(url,JSON.stringify(param))
+        .then(function(res) {
+          console.log(res);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   },
   components: {
     headBar,
     footerBar
-  },
+  }
 };
 </script>
 
 <style>
 .login_bg {
-    width: 100%;
-    height: 500px;
-    background: url("../../assets/images/login_bg.jpg") no-repeat;
-    background-size: 100% 100%;
-    position: absolute;
-    margin-top: 10px;
+  width: 100%;
+  height: 500px;
+  background: url("../../assets/images/login_bg.jpg") no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  margin-top: 10px;
 }
 .login_box {
   width: 300px;
@@ -100,7 +105,7 @@ export default {
   border-radius: 5px;
 }
 .footerBar {
-    margin-top: 520px;
+  margin-top: 520px;
 }
 </style>
 
