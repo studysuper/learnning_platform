@@ -1,7 +1,7 @@
 <template>
   <div class="test_menu">
     <div class="menu_header">
-      <headBar></headBar>
+      <headBar activeIndex='4'></headBar>
     </div>
     <div class="menu_body">
       <div class="record_buttons">

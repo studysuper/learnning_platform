@@ -1,6 +1,6 @@
 <template>
   <div>
-    <headBar></headBar>
+    <headBar activeIndex="5"></headBar>
     <div class="login_bg">
       <div class="login_box">
         <input
@@ -30,7 +30,9 @@ import headBar from "@/components/nav/header";
 import footerBar from "@/components/nav/footer";
 export default {
   data() {
-    return {};
+    return {
+      
+    };
   },
   mounted() {
     // console.log(this.$axios);
@@ -44,9 +46,9 @@ export default {
         password: pwd
       };
       console.log(user + "  " + pwd);
-      let url = "http://localhost:80/front/froUser/save";
+      let url = "http://localhost:80/api/frouser/register";
       this.$axios
-        .post(url,JSON.stringify(param))
+        .post(url,param)
         .then(function(res) {
           console.log(res);
         })

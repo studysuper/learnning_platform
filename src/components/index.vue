@@ -2,7 +2,7 @@
   <div class="main">
     <img src="../assets/images/banner.png">
     <div class="nav_menu">
-      <headBar></headBar>
+      <headBar activeIndex='1'></headBar>
     </div>
     <div class="content">
       <div class="con_left">

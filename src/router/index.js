@@ -11,6 +11,8 @@ import xingceSpecial from '@/components/test/xingce_menu_special'
 import xingceTest from '@/components/test/xingce_test'
 import news from '@/components/news/news'
 import newsDetail from '@/components/news/news_detail'
+import learnData from '@/components/learn/learn_data'
+import learnVideo from '@/components/learn/learn_video'
 
 Vue.use(Router)
 
@@ -71,6 +73,16 @@ export default new Router({
       path: '/newsDetail',
       name: 'newsDetail',
       component: newsDetail
+    },
+    {
+      path: '/learnData',
+      name: 'learnData',
+      component: learnData
+    },
+    {
+      path: '/learnVideo',
+      name: 'learnVideo',
+      component: learnVideo
     }
   ]
 })

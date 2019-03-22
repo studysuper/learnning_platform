@@ -1,7 +1,7 @@
 <template>
   <div class="news_body">
     <div class="menu_header">
-      <headBar></headBar>
+      <headBar activeIndex='3'></headBar>
     </div>
     <div class="new_box">
       <div class="news_list" v-for="item in newsList">
