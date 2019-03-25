@@ -4,7 +4,7 @@
       <headBar activeIndex='3'></headBar>
     </div>
     <div class="new_box">
-      <div class="news_list" v-for="item in newsList">
+      <div class="news_list" v-for="item in newsList" @click="goNewsdetail()">
         <span>{{item.loc}}|{{item.tit}}</span>
         <div class="news_mes">
           <span>{{item.num}}人浏览</span>
@@ -165,6 +165,11 @@ export default {
         },
       ]
     };
+  },
+  methods:{
+    goNewsdetail(){
+      window.location.href = '/newsDetail'
+    }
   },
   components: {
     headBar,

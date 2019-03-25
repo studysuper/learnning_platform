@@ -18,7 +18,7 @@
         <el-menu-item index="4" @click="goIndex(5)">行测测试</el-menu-item>
         <el-menu-item index="4" @click="goIndex(6)">申论测试</el-menu-item>
       </el-submenu>
-      <el-menu-item index="5"><a href="/login">登录</a>/<a href="/login">注册</a></el-menu-item>
+      <el-menu-item index="5"><span @click="goIndex(7)">登录</span>/<span @click="goIndex(8)">注册</span></el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -47,6 +47,10 @@ export default {
         window.location.href = '/xingceMenu';
       }else if(num == 6){
         window.location.href = '/shenlunMenu';
+      }else if(num == 7){
+        window.location.href = '/login?login';
+      }else {
+        window.location.href = '/login?register'
       }
     }
   }

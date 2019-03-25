@@ -1,11 +1,14 @@
 <template>
   <div>
     <div class="menu_header">
-      <headBar></headBar>
+      <headBar activeIndex='4'></headBar>
     </div>
     <div class="test_body">
       <div class="test_list">
-        <div class="test_name_item" v-for="item in testList">
+        <div
+          class="test_name_item"
+          v-for="item in testList"
+        >
           <div class="test_name_item_in">
             <div class="name_title">
               {{item.title}}
@@ -14,7 +17,7 @@
               共{{item.all}}题/已做{{item.ready}}题
             </div>
             <div class="name_btns">
-              <div class="name_btns_dati active">
+              <div class="name_btns_dati active" @click="goXingcetest()">
                 我要答题
               </div>
             </div>
@@ -31,12 +34,19 @@ import footerBar from "@/components/nav/footer";
 export default {
   data() {
     return {
-      testList:[{title:"常识判断",all:1000,ready:300},
-      {title:"言语理解与表达",all:2000,ready:200},
-      {title:"数量关系",all:2300,ready:350},
-      {title:"判断推理",all:1200,ready:600},
-      {title:"资料分析",all:2400,ready:100}]
+      testList: [
+        { title: "常识判断", all: 1000, ready: 300 },
+        { title: "言语理解与表达", all: 2000, ready: 200 },
+        { title: "数量关系", all: 2300, ready: 350 },
+        { title: "判断推理", all: 1200, ready: 600 },
+        { title: "资料分析", all: 2400, ready: 100 }
+      ]
     };
+  },
+  methods:{
+    goXingcetest(){
+      window.location.href = '/xingceTest';
+    }
   },
   components: {
     headBar,
@@ -110,8 +120,8 @@ export default {
   box-sizing: border-box;
   text-align: center;
   line-height: 28px;
-  background-color: #ff3f47;
-  border: 1px solid #f66;
+  background-color: #40b6fc;
+  border: 1px solid #bfe9ff;
   color: #fff;
   margin-right: 20px;
   border-radius: 3px;

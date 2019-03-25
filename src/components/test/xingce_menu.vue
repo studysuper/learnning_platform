@@ -16,24 +16,24 @@
       <div class="test_list">
         <div class="test_con">
           <div class="test_part">
-            <div class="test_bod_left">
+            <div class="test_bod_left" @click="goXingce(1)">
               <div class="c_out">
                 <span>考前冲刺</span>
               </div>
             </div>
-            <div class="test_bod_rig">
+            <div class="test_bod_rig" @click="goXingce(2)">
               <div class="c_out">
                   <span>专项训练</span>
               </div>
             </div>
           </div>
           <div class="test_part">
-            <div class="test_bod_left">
+            <div class="test_bod_left" @click="goXingce(3)">
               <div class="c_out">
                   <span>历年真题</span>
               </div>
             </div>
-            <div class="test_bod_rig">
+            <div class="test_bod_rig" @click="goXingce(4)">
               <div class="c_out">
                   <span>错题重练</span>
               </div>
@@ -55,6 +55,19 @@ export default {
   components: {
     headBar,
     footerBar
+  },
+  methods:{
+    goXingce(num){
+      if(num == 1){
+        window.location.href = '/xingceSprint';
+      }else if(num == 2){
+        window.location.href = '/xingceSpecial';
+      }else if (num == 3){
+        window.location.href = '/xingceReal';
+      }else {
+        window.location.href = '/xingceWrong';
+      }
+    }
   }
 };
 </script>

@@ -18,24 +18,31 @@
         <div
           class="login_btn"
           @click="register"
-        >登录</div>
+        >{{urlData}}</div>
       </div>
     </div>
     <footerBar class="footerBar"></footerBar>
   </div>
 </template>
 <script>
-// import loginBg from "../assets/images/login_bg.png"
 import headBar from "@/components/nav/header";
 import footerBar from "@/components/nav/footer";
 export default {
   data() {
     return {
-      
+      urlData:'',
     };
   },
   mounted() {
-    // console.log(this.$axios);
+    console.log(document.location.toString());
+    let url = document.location.toString();
+    let arrUrl = url.split('?');
+    let urlPara = arrUrl[1];
+    if(urlPara == 'login'){
+      this.urlData = '登录';
+    }else {
+      this.urlData = '注册';
+    }
   },
   methods: {
     register: function() {

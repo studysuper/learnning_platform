@@ -4,7 +4,7 @@
       <div class="logo_box">
         <img
           src="../../assets/images/logo.png"
-          alt=""
+          @click="goIndex()"
         >
       </div>
     </div>
@@ -101,6 +101,11 @@ export default {
         }
       ]
     };
+  },
+  methods:{
+    goIndex(){
+      window.location.href = '/';
+    }
   }
 };
 </script>
@@ -116,6 +121,7 @@ export default {
 }
 .logo_box img {
   width: 140px;
+  cursor: pointer;
 }
 .test_list_body {
   width: 1190px;

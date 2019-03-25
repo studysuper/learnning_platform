@@ -16,12 +16,18 @@
       <div class="test_list">
         <div class="test_con">
           <div class="test_part">
-            <div class="test_bod_left">
+            <div
+              class="test_bod_left"
+              @click="goShenlun(1)"
+            >
               <div class="c_out">
                 <span>专项训练</span>
               </div>
             </div>
-            <div class="test_bod_rig">
+            <div
+              class="test_bod_rig"
+              @click="goShenlun(2)"
+            >
               <div class="c_out">
                 <span>历年真题</span>
               </div>
@@ -39,6 +45,15 @@ import footerBar from "@/components/nav/footer";
 export default {
   data() {
     return {};
+  },
+  methods:{
+    goShenlun(num){
+      if(num == 1){
+        window.location.href = '/shenlunReal';
+      }else {
+        window.location.href = '/shenlunSpecial';
+      }
+    }
   },
   components: {
     headBar,

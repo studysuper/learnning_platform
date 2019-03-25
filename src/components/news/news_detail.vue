@@ -1,7 +1,7 @@
 <template>
   <div class="news_detail">
     <div class="menu_header">
-      <headBar></headBar>
+      <headBar activeIndex='3'></headBar>
     </div>
     <div class="news_detail_box">
       <h2 class="news_tit">河北工业大学教学科研岗招80人</h2>
