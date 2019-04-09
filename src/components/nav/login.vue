@@ -17,7 +17,7 @@
         >
         <div
           class="login_btn"
-          @click="register"
+          @click="getMes(nowState)"
         >{{urlData}}</div>
       </div>
     </div>
@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       urlData:'',
+      nowState:0,
     };
   },
   mounted() {
@@ -40,29 +41,48 @@ export default {
     let urlPara = arrUrl[1];
     if(urlPara == 'login'){
       this.urlData = '登录';
+      this.nowState = 1; 
     }else {
       this.urlData = '注册';
+      this.nowState = 0;
     }
   },
   methods: {
-    register: function() {
+    getMes:function(num){
       let user = this.$refs.user.value;
       let pwd = this.$refs.pwd.value;
       let param = {
-        userName: user,
-        password: pwd
-      };
-      console.log(user + "  " + pwd);
-      let url = "http://localhost:80/api/frouser/register";
-      this.$axios
+        userName:user,
+        password:pwd
+      }
+      // console.log(num);
+      if(num == 0){
+        let url = "http://localhost:80/api/frouser/register";
+        this.$axios
         .post(url,param)
         .then(function(res) {
-          console.log(res);
+          let data = res.data;
+          if(data.code == 0){
+            alert("注册成功，请登录");
+            window.location.href = '/login?login';
+          }
         })
         .catch(function(error) {
           console.log(error);
         });
-    }
+      }else {
+        let url = "http://localhost:80/api/frouser/login";
+        this.$axios
+        .get(url,param)
+        .then(function(res) {
+          console.log(res);
+          
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      }
+    },
   },
   components: {
     headBar,

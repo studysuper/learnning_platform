@@ -16,7 +16,7 @@
           </div>
           <div
             class="test_item_box"
-            v-for="item in testList"
+            v-for="(item,index) in testList"
           >
             <p class="test_tit_p">
               {{item.num}}. {{item.title}}
@@ -28,11 +28,11 @@
               <p>D. {{item.ans4}}</p>
             </div>
             <div class="test_choice">
-              <el-radio-group v-model="radio2">
-                <el-radio :label="3">A</el-radio>
-                <el-radio :label="6">B</el-radio>
-                <el-radio :label="9">C</el-radio>
-                <el-radio :label="12">D</el-radio>
+              <el-radio-group v-model="item.key">
+                <el-radio :label="'label'+index+'1'">A</el-radio>
+                <el-radio :label="'label'+index+'2'">B</el-radio>
+                <el-radio :label="'label'+index+'3'">C</el-radio>
+                <el-radio :label="'label'+index+'4'">D</el-radio>
               </el-radio-group>
             </div>
           </div>
@@ -46,10 +46,10 @@
           >
         </div>
         <div class="timer_box">
-          <p>已用时 00:00:00</p>
+          <p>已用时 {{this.str}}</p>
         </div>
         <div class="btns_box">
-          <div class="btn btn_stop">暂停</div>
+          <div class="btn btn_stop" @click="stop()">暂停</div>
           <div class="btn btn_after">下次做</div>
           <div class="btn btn_sub">交卷</div>
         </div>
@@ -61,7 +61,13 @@
 export default {
   data() {
     return {
-      radio2: 3,
+      h:0,
+      m:0,
+      s:0,
+      ms:0,
+      time:'',
+      str:'',
+      radio: '',
       testList: [
         {
           num: 1,
@@ -70,7 +76,8 @@ export default {
           ans1: "坚持和发展中国特色社会主义",
           ans2: "中国特色社会主义进入了新时代",
           ans3: "实现社会主义现代化和中华民族伟大复兴",
-          ans4: "坚持以人民为中心的发展思想"
+          ans4: "坚持以人民为中心的发展思想",
+          key:''
         },
         {
           num: 2,
@@ -79,7 +86,8 @@ export default {
           ans1: "坚持和发展中国特色社会主义",
           ans2: "中国特色社会主义进入了新时代",
           ans3: "实现社会主义现代化和中华民族伟大复兴",
-          ans4: "坚持以人民为中心的发展思想"
+          ans4: "坚持以人民为中心的发展思想",
+          key:''
         },
         {
           num: 3,
@@ -88,7 +96,8 @@ export default {
           ans1: "坚持和发展中国特色社会主义",
           ans2: "中国特色社会主义进入了新时代",
           ans3: "实现社会主义现代化和中华民族伟大复兴",
-          ans4: "坚持以人民为中心的发展思想"
+          ans4: "坚持以人民为中心的发展思想",
+          key:''
         },
         {
           num: 4,
@@ -97,14 +106,56 @@ export default {
           ans1: "坚持和发展中国特色社会主义",
           ans2: "中国特色社会主义进入了新时代",
           ans3: "实现社会主义现代化和中华民族伟大复兴",
-          ans4: "坚持以人民为中心的发展思想"
+          ans4: "坚持以人民为中心的发展思想",
+          key:''
         }
       ]
     };
   },
+  mounted(){
+    this.start();
+
+  },
   methods:{
     goIndex(){
       window.location.href = '/';
+    },
+    timer(){
+      this.ms = this.ms + 50;
+      if(this.ms >= 1000){
+        this.ms = 0;
+        this.s = this.s + 1;
+      }
+      if(this.s >= 60){
+        this.s = 0;
+        this.m = this.m + 1;
+      }
+      if(this.m >= 60){
+        this.m = 0;
+        this.h = this.h + 1;
+      }
+      this.str = this.toDub(this.h)+":"+this.toDub(this.m)+":"+this.toDub(this.s);
+    },
+    reset(){
+      clearInterval(this.time);
+      this.h = 0;
+      this.m = 0;
+      this.s = 0;
+      this.ms = 0;
+      this.str = '00:00:00';
+    },
+    start(){
+      this.time = setInterval(this.timer,50);
+    },
+    stop(){
+      clearInterval(this.time);
+    },
+    toDub(n){
+      if(n<10){
+        return '0'+n;
+      }else {
+        return n;
+      }
     }
   }
 };
