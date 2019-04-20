@@ -12,7 +12,7 @@
       <div class="test_body_left">
         <div class="test_box">
           <div class="test_title">
-            2019年国家公务员考试《行测》真题（市地级）
+              <span id="testTitle" name="testTitle"></span>
           </div>
           <div
             class="test_item_box"
@@ -58,54 +58,66 @@
   </div>
 </template>
 <script>
+const testListData=[];
 export default {
   data() {
     return {
       radio2: 3,
-      testList: [
-        {
-          num: 1,
-          title:
-            "党的十八大以来，以习近平同志为核心的党中央，紧密结合新的时代条件和实践要求，以全新的视野深化对共产党执政规律，社会主义建设规律，人类社会发展规律的认识，创立了习近平新时代中国特色社会主义思想，其核心要义是：",
-          ans1: "坚持和发展中国特色社会主义",
-          ans2: "中国特色社会主义进入了新时代",
-          ans3: "实现社会主义现代化和中华民族伟大复兴",
-          ans4: "坚持以人民为中心的发展思想"
-        },
-        {
-          num: 2,
-          title:
-            "党的十八大以来，以习近平同志为核心的党中央，紧密结合新的时代条件和实践要求，以全新的视野深化对共产党执政规律，社会主义建设规律，人类社会发展规律的认识，创立了习近平新时代中国特色社会主义思想，其核心要义是：",
-          ans1: "坚持和发展中国特色社会主义",
-          ans2: "中国特色社会主义进入了新时代",
-          ans3: "实现社会主义现代化和中华民族伟大复兴",
-          ans4: "坚持以人民为中心的发展思想"
-        },
-        {
-          num: 3,
-          title:
-            "党的十八大以来，以习近平同志为核心的党中央，紧密结合新的时代条件和实践要求，以全新的视野深化对共产党执政规律，社会主义建设规律，人类社会发展规律的认识，创立了习近平新时代中国特色社会主义思想，其核心要义是：",
-          ans1: "坚持和发展中国特色社会主义",
-          ans2: "中国特色社会主义进入了新时代",
-          ans3: "实现社会主义现代化和中华民族伟大复兴",
-          ans4: "坚持以人民为中心的发展思想"
-        },
-        {
-          num: 4,
-          title:
-            "党的十八大以来，以习近平同志为核心的党中央，紧密结合新的时代条件和实践要求，以全新的视野深化对共产党执政规律，社会主义建设规律，人类社会发展规律的认识，创立了习近平新时代中国特色社会主义思想，其核心要义是：",
-          ans1: "坚持和发展中国特色社会主义",
-          ans2: "中国特色社会主义进入了新时代",
-          ans3: "实现社会主义现代化和中华民族伟大复兴",
-          ans4: "坚持以人民为中心的发展思想"
-        }
-      ]
+      testList :testListData
     };
   },
+ mounted:function(){
+    let code = this.GetQueryString('code');
+    //调用接口进行数据初始化
+    this.initData(code);
+},
   methods:{
     goIndex(){
       window.location.href = '/';
-    }
+    },
+
+  // 获取参数
+    GetQueryString(name)
+      {
+           var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+           var r = window.location.search.substr(1).match(reg);
+           if(r!=null)return  unescape(r[2]); return null;
+      },
+    initData(code){
+      console.log("开始调用后端queryTestByCode接口");
+        let url = "http://localhost:80/api/testpaper/queryTestByCode";
+        let param = {
+          "testPaperNumber":code
+        };
+        this.$axios
+          .post(url,param)
+          .then(function(res) {
+            let dataArray = res.data;
+            let title = dataArray[0].exerciseTitle;
+            document.getElementById("testTitle").innerText=title;
+            for(let i = 0;i<dataArray.length;i++){
+              let topic= dataArray[i].testPaperTopic;
+              let testPaperOptionA= dataArray[i].testPaperOptionA;
+              let testPaperOptionB= dataArray[i].testPaperOptionB;
+              let testPaperOptionC= dataArray[i].testPaperOptionC;
+              let testPaperOptionD= dataArray[i].testPaperOptionD;
+              let answer = dataArray[i].testPaperAnswer;
+              let paperNumber= dataArray[i].paperNumber;//试题分数
+              testListData.push({
+                num:i+1,
+                title:topic,
+                ans1:testPaperOptionA,
+                ans2:testPaperOptionB,
+                ans3:testPaperOptionC,
+                ans4:testPaperOptionD
+              });
+            }
+        })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+
   }
 };
 </script>

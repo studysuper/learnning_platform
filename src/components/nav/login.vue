@@ -38,10 +38,13 @@ export default {
     let url = document.location.toString();
     let arrUrl = url.split('?');
     let urlPara = arrUrl[1];
+    let urlFlag = 0;
     if(urlPara == 'login'){
       this.urlData = '登录';
+      this.urlFlag=0;
     }else {
       this.urlData = '注册';
+      this.urlFlag=1;
     }
   },
   methods: {
@@ -53,11 +56,23 @@ export default {
         password: pwd
       };
       console.log(user + "  " + pwd);
-      let url = "http://localhost:80/api/frouser/register";
+      let url = "";
+      if(this.urlFlag==0){
+        url = "http://localhost:80/api/frouser/login";
+      }
+      if(this.urlFlag==1){
+        url = "http://localhost:80/api/frouser/register";
+      }
       this.$axios
         .post(url,param)
         .then(function(res) {
           console.log(res);
+          if(res.data.code==0){
+            //跳转到登录界面
+            window.location.href = "/login?login";
+          }else {//500
+            alert(res.data.msg);
+          }
         })
         .catch(function(error) {
           console.log(error);
