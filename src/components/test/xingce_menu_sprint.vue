@@ -53,7 +53,6 @@ export default {
       this.$axios
         .post(url,param)
         .then(function(res) {
-          
           let dataArray = res.data;
           for(let i = 0;i<dataArray.length;i++){
               let title  = res.data[i].exerciseTitle;

@@ -62,7 +62,6 @@ const testListData=[];
 export default {
   data() {
     return {
-<<<<<<< HEAD
       radio2: 3,
       testList :testListData
     };
@@ -71,78 +70,16 @@ export default {
     let code = this.GetQueryString('code');
     //调用接口进行数据初始化
     this.initData(code);
-},
-=======
-      h:0,
-      m:0,
-      s:0,
-      ms:0,
-      time:'',
-      str:'',
-      radio: '',
-      testList: [
-        {
-          num: 1,
-          title:
-            "党的十八大以来，以习近平同志为核心的党中央，紧密结合新的时代条件和实践要求，以全新的视野深化对共产党执政规律，社会主义建设规律，人类社会发展规律的认识，创立了习近平新时代中国特色社会主义思想，其核心要义是：",
-          ans1: "坚持和发展中国特色社会主义",
-          ans2: "中国特色社会主义进入了新时代",
-          ans3: "实现社会主义现代化和中华民族伟大复兴",
-          ans4: "坚持以人民为中心的发展思想",
-          key:''
-        },
-        {
-          num: 2,
-          title:
-            "党的十八大以来，以习近平同志为核心的党中央，紧密结合新的时代条件和实践要求，以全新的视野深化对共产党执政规律，社会主义建设规律，人类社会发展规律的认识，创立了习近平新时代中国特色社会主义思想，其核心要义是：",
-          ans1: "坚持和发展中国特色社会主义",
-          ans2: "中国特色社会主义进入了新时代",
-          ans3: "实现社会主义现代化和中华民族伟大复兴",
-          ans4: "坚持以人民为中心的发展思想",
-          key:''
-        },
-        {
-          num: 3,
-          title:
-            "党的十八大以来，以习近平同志为核心的党中央，紧密结合新的时代条件和实践要求，以全新的视野深化对共产党执政规律，社会主义建设规律，人类社会发展规律的认识，创立了习近平新时代中国特色社会主义思想，其核心要义是：",
-          ans1: "坚持和发展中国特色社会主义",
-          ans2: "中国特色社会主义进入了新时代",
-          ans3: "实现社会主义现代化和中华民族伟大复兴",
-          ans4: "坚持以人民为中心的发展思想",
-          key:''
-        },
-        {
-          num: 4,
-          title:
-            "党的十八大以来，以习近平同志为核心的党中央，紧密结合新的时代条件和实践要求，以全新的视野深化对共产党执政规律，社会主义建设规律，人类社会发展规律的认识，创立了习近平新时代中国特色社会主义思想，其核心要义是：",
-          ans1: "坚持和发展中国特色社会主义",
-          ans2: "中国特色社会主义进入了新时代",
-          ans3: "实现社会主义现代化和中华民族伟大复兴",
-          ans4: "坚持以人民为中心的发展思想",
-          key:''
-        }
-      ]
-    };
-  },
-  mounted(){
-    this.start();
-
-  },
->>>>>>> fafdfacc3e6eeb5dc125bbcd9a710ee37412188f
-  methods:{
-    goIndex(){
-      window.location.href = '/';
-    },
-<<<<<<< HEAD
-
-  // 获取参数
+},      
+methods:{
+      // 获取参数
     GetQueryString(name)
       {
            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
            var r = window.location.search.substr(1).match(reg);
            if(r!=null)return  unescape(r[2]); return null;
       },
-    initData(code){
+   initData(code){
       console.log("开始调用后端queryTestByCode接口");
         let url = "http://localhost:80/api/testpaper/queryTestByCode";
         let param = {
@@ -171,52 +108,10 @@ export default {
                 ans4:testPaperOptionD
               });
             }
-        })
-          .catch(function(error) {
+        }).catch(function(error) {
             console.log(error);
-          });
-      }
-
-=======
-    timer(){
-      this.ms = this.ms + 50;
-      if(this.ms >= 1000){
-        this.ms = 0;
-        this.s = this.s + 1;
-      }
-      if(this.s >= 60){
-        this.s = 0;
-        this.m = this.m + 1;
-      }
-      if(this.m >= 60){
-        this.m = 0;
-        this.h = this.h + 1;
-      }
-      this.str = this.toDub(this.h)+":"+this.toDub(this.m)+":"+this.toDub(this.s);
-    },
-    reset(){
-      clearInterval(this.time);
-      this.h = 0;
-      this.m = 0;
-      this.s = 0;
-      this.ms = 0;
-      this.str = '00:00:00';
-    },
-    start(){
-      this.time = setInterval(this.timer,50);
-    },
-    stop(){
-      clearInterval(this.time);
-    },
-    toDub(n){
-      if(n<10){
-        return '0'+n;
-      }else {
-        return n;
-      }
-    }
->>>>>>> fafdfacc3e6eeb5dc125bbcd9a710ee37412188f
-  }
+          });}
+      },
 };
 </script>
 <style>
@@ -309,4 +204,3 @@ export default {
   margin-bottom: 20px;
 }
 </style>
-

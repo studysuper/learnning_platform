@@ -27,11 +27,12 @@
 <script>
 import headBar from "@/components/nav/header";
 import footerBar from "@/components/nav/footer";
+
 export default {
   data() {
     return {
       urlData:'',
-      nowState:0,
+      nowState:0
     };
   },
   mounted() {
@@ -42,17 +43,10 @@ export default {
     let urlFlag = 0;
     if(urlPara == 'login'){
       this.urlData = '登录';
-<<<<<<< HEAD
       this.urlFlag=0;
     }else {
       this.urlData = '注册';
       this.urlFlag=1;
-=======
-      this.nowState = 1; 
-    }else {
-      this.urlData = '注册';
-      this.nowState = 0;
->>>>>>> fafdfacc3e6eeb5dc125bbcd9a710ee37412188f
     }
   },
   methods: {
@@ -60,7 +54,6 @@ export default {
       let user = this.$refs.user.value;
       let pwd = this.$refs.pwd.value;
       let param = {
-<<<<<<< HEAD
         userName: user,
         password: pwd
       };
@@ -72,49 +65,27 @@ export default {
       if(this.urlFlag==1){
         url = "http://localhost:80/api/frouser/register";
       }
-      this.$axios
-=======
-        userName:user,
-        password:pwd
-      }
       // console.log(num);
-      if(num == 0){
-        let url = "http://localhost:80/api/frouser/register";
         this.$axios
->>>>>>> fafdfacc3e6eeb5dc125bbcd9a710ee37412188f
         .post(url,param)
         .then(function(res) {
           let data = res.data;
           if(data.code == 0){
-            alert("注册成功，请登录");
-            window.location.href = '/login?login';
+            if(data.msg=='register'){
+			    window.location.href = '/login?login';
+			}
+			 if(data.msg=='login'){
+			    window.location.href = '/';
+			}
+            
+          }else{
+            alert(data.msg);
           }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      }else {
-        let url = "http://localhost:80/api/frouser/login";
-        this.$axios
-        .get(url,param)
-        .then(function(res) {
-          console.log(res);
-<<<<<<< HEAD
-          if(res.data.code==0){
-            //跳转到登录界面
-            window.location.href = "/login?login";
-          }else {//500
-            alert(res.data.msg);
-          }
-=======
-          
->>>>>>> fafdfacc3e6eeb5dc125bbcd9a710ee37412188f
         })
         .catch(function(error) {
           console.log(error);
         });
       }
-    },
   },
   components: {
     headBar,
