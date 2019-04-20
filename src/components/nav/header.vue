@@ -19,6 +19,7 @@
         <el-menu-item index="4" @click="goIndex(6)">申论测试</el-menu-item>
       </el-submenu>
       <el-menu-item index="5"><span @click="goIndex(7)">登录</span>/<span @click="goIndex(8)">注册</span></el-menu-item>
+      
     </el-menu>
   </div>
 </template>
