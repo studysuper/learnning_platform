@@ -52,7 +52,7 @@ export default {
         .then(function(res) {
           let dataArray = res.data;   
           //debugger;
-          this.total=dataArray.length;
+         // this.total=dataArray.length;
          for(let i = 0;i<dataArray.length;i++){
             let id  = dataArray[i].cid;
             let locData = dataArray[i].location;

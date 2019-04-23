@@ -7,11 +7,11 @@
       <div class="learn_data_list" v-for="item in dataList">
         <span>{{item.tit}}</span>
         <div class="oper_btns">
-          <div class="up_btn">
+          <!-- <div class="up_btn">
             上传文件
-          </div>
+          </div> -->
           <div class="down_btn">
-            下载文件
+            <a href="#" @click="downFile(item.id)">下载文件</a>
           </div>
         </div>
       </div>
@@ -22,24 +22,56 @@
 <script>
 import headBar from "@/components/nav/header";
 import footerBar from "@/components/nav/footer";
+const dataListData = [];
 export default {
     data(){
         return{
-            dataList:[
-                {tit:'22019重庆公务员考试：公基经济学成本考点1'},
-                {tit:'22019重庆公务员考试：公基经济学成本考点2'},
-                {tit:'22019重庆公务员考试：公基经济学成本考点3'},
-                {tit:'22019重庆公务员考试：公基经济学成本考点4'},
-                {tit:'22019重庆公务员考试：公基经济学成本考点5'},
-                {tit:'22019重庆公务员考试：公基经济学成本考点6'},
-                {tit:'22019重庆公务员考试：公基经济学成本考点7'},
-                {tit:'22019重庆公务员考试：公基经济学成本考点8'},
-                {tit:'22019重庆公务员考试：公基经济学成本考点9'},
-                {tit:'22019重庆公务员考试：公基经济学成本考点10'},
-
-            ]
+           dataList:dataListData
         }
     },
+  mounted(){
+    this.initData();
+  },
+  methods:{
+    //初始化新闻文章数据信息
+    initData(){
+      console.log("开始调用后端queryTestPaperAll接口");
+      let url = "http://localhost:80/api/testpaper/queryTestPaperAll";
+      let param = {
+        "exerciseType":"1"//学习资源 应该为3  在这里测试，先设置成1
+      };
+      this.$axios
+        .post(url,param)
+        .then(function(res) {
+          let dataArray = res.data;
+          for(let i = 0;i<dataArray.length;i++){
+              let title  = res.data[i].exerciseTitle;
+              let id = res.data[i].id;
+              dataListData.push({
+                id:id,
+                tit:title
+              });
+          }
+       })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    downFile(id){
+      console.log("开始下载文件");
+      let url = "http://localhost:80/api/testpaper/createTestPaper";
+      let param = {
+        "id":id
+      };
+        this.$axios
+        .post(url,param)
+        .then(function(res) {
+       })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
+  },
   components: {
     headBar,
     footerBar
