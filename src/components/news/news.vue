@@ -4,10 +4,10 @@
       <headBar activeIndex='3'></headBar>
     </div>
     <div class="new_box">
-      <div class="news_list" v-for="item in newsList" @click="goNewsdetail()">
-        <span>{{item.loc}}|{{item.tit}}</span>
-        <div class="news_mes">
-          <span>{{item.num}}人浏览</span>
+      <div class="news_list" v-for="item in newsList" @click="goNewsdetail(item.id)" >
+        <span >{{item.loc}}|{{item.tit}}</span>
+        <div class="news_mes"  >
+          <!-- <span>{{item.num}}人浏览</span> -->
           <span>{{item.date}}</span>
         </div>
       </div>
@@ -15,10 +15,9 @@
     <div class="news_page">
       <el-pagination
         background
-        :page-size="20"
-        layout="prev, pager, next"
-        :total="500"
-      >
+        :page-size="10"
+        layout=" prev, pager, next"
+        :total="total">
       </el-pagination>
     </div>
     <footerBar></footerBar>
@@ -27,148 +26,58 @@
 <script>
 import headBar from "@/components/nav/header";
 import footerBar from "@/components/nav/footer";
+const newsListData = [];
 export default {
   data() {
     return {
-      newsList: [
-        {
-          loc: "山东",
-          tit: "2019年山东曲阜市引进优秀i青年人才100人公告",
-          num: 300,
-          date: "03-21"
-        },
-        {
-          loc: "广西",
-          tit: "2019年广西省北海市银海区中小学(幼儿园)招聘教师239名公告",
-          num: 200,
-          date: "03-21"
-        },
-        {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-         {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-         {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-         {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-         {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-         {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-         {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-         {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-         {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-         {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-         {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-        {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-        {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-        {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-        {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-        {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-        {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-        {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-         {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-         {
-          loc: "江苏",
-          tit: "2019年江苏南京信息工程大学教学科研岗招聘80人公告",
-          num: 100,
-          date: "03-21"
-        },
-      ]
+       pageSize:10,
+       total:100,
+       newsList:newsListData
     };
   },
+  mounted(){
+    this.initData();
+  },
   methods:{
-    goNewsdetail(){
-      window.location.href = '/newsDetail'
+    //初始化新闻文章数据信息
+    initData(){
+      console.log("开始调用后端queryContendList接口");
+      let url = "http://localhost:80/api/bContent/queryContendList";
+      let param = {
+        "offset":"0",
+        "limit":"20"
+      };
+      this.$axios
+        .post(url,param)
+        .then(function(res) {
+          let dataArray = res.data;   
+          //debugger;
+          this.total=dataArray.length;
+         for(let i = 0;i<dataArray.length;i++){
+            let id  = dataArray[i].cid;
+            let locData = dataArray[i].location;
+            let titData = dataArray[i].title;
+            let numData  = dataArray[i].commentsNum;
+            let dateData  = dataArray[i].gtmModified;
+             //封装数据
+             newsListData.push({
+                id:id,
+                loc:locData,
+                tit:titData,
+                num:numData,
+                date:dateData
+              });
+
+          }
+          
+       })
+        .catch(function(error) {
+          console.log(error);
+        });
+
+    },
+    goNewsdetail(id){
+      window.location.href = '/newsDetail?id='+id
     }
   },
   components: {

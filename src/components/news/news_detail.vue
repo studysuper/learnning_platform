@@ -4,11 +4,12 @@
       <headBar activeIndex='3'></headBar>
     </div>
     <div class="news_detail_box">
-      <h2 class="news_tit">河北工业大学教学科研岗招80人</h2>
-      <span class="news_author">作者：刘天语</span>
-      <span class="news_date">时间：2019-07-09</span>
-      <p>网上报名。报考人员登录指定的报名网站，点击“网上报名”，进入网上报名系统，如实填写、准确提交相关个人报考信息资料，并上传本人近期一寸免冠正面彩色照片(照片大小114*156像素、占用空间小于20K)，上传的照片应保证清晰可辨。网上报名必须使用二代身份证。报考人员在资格初审前多次登录填交报考信息的，后一次填报自动替换前一次填报信息。报名资格一经用人部门初审通过，不能更改。</p>
-      <p>网上初审。招聘主管机关在指定报名期间安排专人负责查看网上报名情况，根据报考人员提交的信息资料，对报考人员进行资格初审，并在网上反馈初审结果。招聘主管机关留存通过资格初审人员的报名信息，供资格审查时参考。报名人员对报名初审结果持有异议，可在4月9日17：00前向指定的监督电话反映，不在规定期限内反映，视为对初审结果无异议。报名系统于4月8日17：00自动关闭。</p>
+      <h2 class="news_tit" id = "newsTitle"></h2>
+      <span class="news_author" id = "news_author"></span>
+      <span class="news_date" id="newsDate"></span>
+      <div id="content">
+
+      </div>
     </div>
     <footerBar></footerBar>
   </div>
@@ -17,6 +18,40 @@
 import headBar from "@/components/nav/header";
 import footerBar from "@/components/nav/footer";
 export default {
+ 
+  mounted(){
+    let id = this.GetQueryString('id');
+    //调用接口进行数据初始化
+    this.initData(id);
+  },
+  methods:{
+       // 获取参数
+    GetQueryString(name)
+      {
+           var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+           var r = window.location.search.substr(1).match(reg);
+           if(r!=null)return  unescape(r[2]); return null;
+      },
+    initData(id){
+      console.log("开始调用后端queryContendById接口");
+      let url = "http://localhost:80/api/bContent/queryContendById";
+      let param = {
+        "id":id,
+      };
+      this.$axios
+        .post(url,param)
+        .then(function(res) {
+        let dataDatail = res.data;   
+        document.getElementById("newsTitle").innerText=dataDatail.title;
+        document.getElementById("news_author").innerText='作者：'+ dataDatail.author;
+        document.getElementById("newsDate").innerText='时间：'+dataDatail.gtmModified;
+        document.getElementById("content").innerHTML=dataDatail.content;
+       })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
+  },
   components: {
     headBar,
     footerBar
