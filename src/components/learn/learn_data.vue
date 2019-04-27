@@ -33,6 +33,19 @@ export default {
     this.initData();
   },
   methods:{
+    download (data) {
+        if (!data) {
+            return
+        }
+        let url = window.URL.createObjectURL(new Blob(['123']));
+        let link = document.createElement('a');
+        link.style.display = 'none';
+        link.href = url;
+        link.setAttribute('download', 'aaa.doc');
+
+        document.body.appendChild(link);
+        link.click();
+    },
     //初始化新闻文章数据信息
     initData(){
       console.log("开始调用后端queryTestPaperAll接口");
@@ -63,13 +76,32 @@ export default {
       let param = {
         "id":id
       };
+      //----
         this.$axios
         .post(url,param)
         .then(function(res) {
+          //debugger;
+         //let url = 'http://localhost/file/123.doc';
+         let url = "http://localhost/file"+ res.data.split("file")[1];
+          window.location.href=url;
        })
         .catch(function(error) {
           console.log(error);
         });
+
+      // this.$axios({
+      //     method: 'post',
+      //     url: url,
+      //     data:param
+      //    // responseType: 'blob'
+      // }).then(response => {
+      //   window.location.href='D:\\wordFile\\123.docx';
+      //     // this.download(response)
+      // }).catch((error) => {
+
+      // })
+
+
     }
   },
   components: {
