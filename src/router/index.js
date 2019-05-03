@@ -17,7 +17,8 @@ import news from '@/components/news/news'
 import newsDetail from '@/components/news/news_detail'
 import learnData from '@/components/learn/learn_data'
 import learnVideo from '@/components/learn/learn_video'
-
+import geren from '@/components/geren/geren'
+import gerenTest from '@/components/geren/gerenTest'
 Vue.use(Router)
 
 export default new Router({
@@ -107,6 +108,17 @@ export default new Router({
       path: '/learnVideo',
       name: 'learnVideo',
       component: learnVideo
+    },
+    {
+      path: '/geren',
+      name: 'geren',
+      component: geren
+    },
+    {
+      path: '/gerenTest',
+      name: 'gerenTest',
+      component: gerenTest
     }
+    
   ]
 })

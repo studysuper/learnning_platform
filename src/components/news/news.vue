@@ -12,14 +12,14 @@
         </div>
       </div>
     </div>
-    <div class="news_page">
+    <!-- <div class="news_page">
       <el-pagination
         background
         :page-size="10"
         layout=" prev, pager, next"
         :total="total">
       </el-pagination>
-    </div>
+    </div> -->
     <footerBar></footerBar>
   </div>
 </template>

@@ -21,13 +21,13 @@
                 <span>考前冲刺</span>
               </div>
             </div>
-            <div class="test_bod_rig" @click="goXingce(2)">
+            <div class="test_bod_rig" @click="goXingce(3)">
               <div class="c_out">
-                  <span>专项训练</span>
+                  <span>历年真题</span>
               </div>
             </div>
           </div>
-          <div class="test_part">
+          <!-- <div class="test_part">
             <div class="test_bod_left" @click="goXingce(3)">
               <div class="c_out">
                   <span>历年真题</span>
@@ -38,7 +38,8 @@
                   <span>错题重练</span>
               </div>
             </div>
-          </div>
+          </div> -->
+
         </div>
       </div>
     </div>

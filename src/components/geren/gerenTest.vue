@@ -27,52 +27,30 @@
               <p>C. {{item.ans3}}</p>
               <p>D. {{item.ans4}}</p>
             </div>
-            <div class="test_choice" >
-              <el-radio-group v-model="item.key" >
-                <el-radio :label="'label'+index+'1'" @change="choiceAnswer(item.topicId,'A')">A</el-radio>
-                <el-radio :label="'label'+index+'2'" @change="choiceAnswer(item.topicId,'B')">B</el-radio>
-                <el-radio :label="'label'+index+'3'" @change="choiceAnswer(item.topicId,'C')">C</el-radio>
-                <el-radio :label="'label'+index+'4'" @change="choiceAnswer(item.topicId,'D')">D</el-radio>
-              </el-radio-group>
-            </div>
+           <font color='red'> 你的答案：{{item.yourAnswer}}</font>
+            <p></p>
+           <font color='red'>  正确答案：{{item.answer}}</font>
           </div>
         </div>
       </div>
-      <div class="test_body_right">
-        <div class="clock_img">
-          <img
-            src="../../assets/images/clock.png"
-            alt=""
-          >
-        </div>
-        <div class="timer_box">
-          <!-- <p>已用时 {{this.str}}</p> -->
-        </div>
-        <div class="btns_box">
-          <!-- <div class="btn btn_stop" @click="stop()">暂停</div>
-          <div class="btn btn_after" @click="nextDo()">下次做</div> -->
-          <div class="btn btn_sub" @click="finish(finishMap)">交卷</div>
-        </div>
-      </div>
+     
     </div>
   </div>
 </template>
 <script>
 const testListData=[];
- var map = new Map();
 export default {
   data() {
     return {
       radio2: 3,
-      testList :testListData,
-      finishMap:map
+      testList :testListData
     };
   },
  mounted(){
    this.isLogin();
-    let code = this.GetQueryString('code');
+    let id = this.GetQueryString('id');
     //调用接口进行数据初始化
-    this.initData(code);
+    this.initData(id);
 },      
 methods:{
   isLogin:function(){
@@ -82,30 +60,6 @@ methods:{
 			    window.location.href = '/login?login';
       }
   },
-  choiceAnswer:function(key,value){   
-    map.set(key,value);
-    console.log(map);
-  },
-    finish:function(finishMap){
-        let url = "http://localhost:80/api/testpaper/finishTestPaper";
-        let param = {
-          "anwerMap":finishMap,
-          "operator":document.cookie
-        };
-        this.$axios
-          .post(url,param)
-          .then(function(res) {
-            if(res.data=='fail'){
-              alert('请选择答案');
-            }else{
-            alert(res.data+'分');
-            window.location.href = '/geren';
-            }
-            
-        }).catch(function(error) {
-            console.log(error);
-          });
-    },
     // 获取参数
     GetQueryString(name)
       {
@@ -113,11 +67,11 @@ methods:{
            var r = window.location.search.substr(1).match(reg);
            if(r!=null)return  unescape(r[2]); return null;
       },
-   initData :function(code){
+   initData :function(id){
       console.log("开始调用后端queryTestByCode接口");
-        let url = "http://localhost:80/api/testpaper/queryTestByCode";
+        let url = "http://localhost:80/api/testpaper/querRecordDetial";
         let param = {
-          "testPaperNumber":code
+          "id":id
         };
         this.$axios
           .post(url,param)
@@ -134,6 +88,7 @@ methods:{
               let answer = dataArray[i].testPaperAnswer;
               let paperNumber= dataArray[i].paperNumber;//试题分数
               let topicId = dataArray[i].topicId;//试题id
+              let yourAnswer = dataArray[i].yourAnswer;//你的答案
               testListData.push({
                 num:i+1,
                 topicId:topicId,
@@ -141,7 +96,9 @@ methods:{
                 ans1:testPaperOptionA,
                 ans2:testPaperOptionB,
                 ans3:testPaperOptionC,
-                ans4:testPaperOptionD
+                ans4:testPaperOptionD,
+                answer:answer,
+                yourAnswer:yourAnswer
               });
             }
         }).catch(function(error) {

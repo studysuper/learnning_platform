@@ -48,6 +48,16 @@ import img1 from '../assets/images/new1.png'
 import img2 from '../assets/images/new2.png'
 import headBar from '@/components/nav/header'
 import footerBar from '@/components/nav/footer'
+// Vue.use(Vuex);
+// var state={
+//   isLogin:0,
+// };
+// const mutations = {
+//   changeLogin(state,data){
+//     state.isLogin = data;
+//   }
+// }
+
 export default {
   data() {
     return {

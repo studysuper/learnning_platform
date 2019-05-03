@@ -75,9 +75,9 @@ export default {
 			    window.location.href = '/login?login';
 			}
 			 if(data.msg=='login'){
-			    window.location.href = '/';
+          window.location.href = '/';
+          document.cookie=user;
 			}
-            
           }else{
             alert(data.msg);
           }
