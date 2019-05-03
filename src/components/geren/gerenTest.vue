@@ -71,36 +71,40 @@ methods:{
       console.log("开始调用后端queryTestByCode接口");
         let url = "http://localhost:80/api/testpaper/querRecordDetial";
         let param = {
-          "id":id
+          "id":id,
+          "operator":document.cookie
         };
         this.$axios
           .post(url,param)
           .then(function(res) {
-            let dataArray = res.data;
-            let title = dataArray[0].exerciseTitle;
-            document.getElementById("testTitle").innerText=title;
-            for(let i = 0;i<dataArray.length;i++){
-              let topic= dataArray[i].testPaperTopic;
-              let testPaperOptionA= dataArray[i].testPaperOptionA;
-              let testPaperOptionB= dataArray[i].testPaperOptionB;
-              let testPaperOptionC= dataArray[i].testPaperOptionC;
-              let testPaperOptionD= dataArray[i].testPaperOptionD;
-              let answer = dataArray[i].testPaperAnswer;
-              let paperNumber= dataArray[i].paperNumber;//试题分数
-              let topicId = dataArray[i].topicId;//试题id
-              let yourAnswer = dataArray[i].yourAnswer;//你的答案
-              testListData.push({
-                num:i+1,
-                topicId:topicId,
-                title:topic,
-                ans1:testPaperOptionA,
-                ans2:testPaperOptionB,
-                ans3:testPaperOptionC,
-                ans4:testPaperOptionD,
-                answer:answer,
-                yourAnswer:yourAnswer
-              });
+            if(res.data.length>0){
+              let dataArray = res.data;
+              let title = dataArray[0].exerciseTitle;
+              document.getElementById("testTitle").innerText=title;
+              for(let i = 0;i<dataArray.length;i++){
+                let topic= dataArray[i].testPaperTopic;
+                let testPaperOptionA= dataArray[i].testPaperOptionA;
+                let testPaperOptionB= dataArray[i].testPaperOptionB;
+                let testPaperOptionC= dataArray[i].testPaperOptionC;
+                let testPaperOptionD= dataArray[i].testPaperOptionD;
+                let answer = dataArray[i].testPaperAnswer;
+                let paperNumber= dataArray[i].paperNumber;//试题分数
+                let topicId = dataArray[i].topicId;//试题id
+                let yourAnswer = dataArray[i].yourAnswer;//你的答案
+                testListData.push({
+                  num:i+1,
+                  topicId:topicId,
+                  title:topic,
+                  ans1:testPaperOptionA,
+                  ans2:testPaperOptionB,
+                  ans3:testPaperOptionC,
+                  ans4:testPaperOptionD,
+                  answer:answer,
+                  yourAnswer:yourAnswer
+                });
+              }
             }
+            
         }).catch(function(error) {
             console.log(error);
           });
